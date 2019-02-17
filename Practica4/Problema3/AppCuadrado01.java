@@ -6,10 +6,6 @@ public class AppParqueNacional01
 	public static void main(String args[])
 	{ ParqueNacional parquesnacionales[] = new ParqueNacional[4];
 
-		for (int i=0; i<parquesnacionales.length; i++)
-			{parquesnacionales[i] = new ParqueNacional();
-			}
-
 
     parquesnacionales[0] = new ReservaDeCaza( ReservaDeCaza01, 10000, 2000, 100, Rifle);
 		parquesnacionales[1] = new ReservaDeCaza( ReservaDeCaza02, 20000, 3000, 200, Rifle);
