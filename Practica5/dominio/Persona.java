@@ -58,11 +58,14 @@ public class Persona
       }
    @Override
    public boolean equals(Object o)
-     { if (o instanceof Persona)
-        {if (o.getNIF() == this.getNIF)
-          return true;
-        else
-          return false;
+     { Persona persona;
+       boolean igual = false;
+
+       if (o instanceof Persona)
+        { persona = (Persona) o;
+          if (persona.getNIF() == this.getNIF())
+          igual = true;
         }
+       return igual;
      }
 }

@@ -21,10 +21,15 @@ public class App
   int edad;
   String NIF;
 
+  //Instancia de la agenda
+  Agenda agenda1;
+
+
   public static void main(String args[])
   { //Opcion del menu a introducir por teclado:
     String opcion;
-    Agenda agenda1;
+    //posicion de la agenda
+    int posicion;
 
     //Mostrar el menu por pantalla
     System.out.println("##################################");
@@ -46,7 +51,11 @@ public class App
                     this.crearPersona();
                     break;
            case "2":
-                    this.buscarPersona();
+                    posicion = this.buscarPersona();
+                    if (posicion == -1)
+                      System.out.println("No existe la persona buscada.");
+                    else
+                      System.out.println("La persona se encuentra en la posicion " + posicion + "de la agenda.");
                     break;
            case "3":
                     break;
@@ -62,10 +71,10 @@ public class App
        }
   }
 
-  public Persona leerDatosPersona()
-    {
-
-  }
+  // public Persona leerDatosPersona()
+  //   {
+  //
+  // }
 
   public void crearPersona()
   {   //Lectura de los atributos de persona
@@ -83,14 +92,28 @@ public class App
       //Agregar la persona a la agenda
       agenda1.crearPersona(persona);
   }
- public void buscarPersona()
- {   //Lectura del NIF de la persona a buscar
-     System.out.println("Introduzca el NIF de la persona que desea buscar: ");
+
+//Busca una personas
+//Devuelve -1 si no existe la persona buscada
+ public int buscarPersona()
+ {   //Guarda la posicion del vector en la que se encuentra la persona buscada
+     int posicion;
+     //Lectura del NIF de la persona a buscar
+     System.out.println("Introduzca los datos de la persona que desea buscar: ");
+     System.out.println("Nombre: ");
+     nombre = Leer.porTeclado();
+     System.out.println("Edad: ");
+     edad   = Integer.parseInt(Leer.porTeclado());
      System.out.println("NIF: ");
      NIF    = Leer.porTeclado();
 
+     //Instancia de persona
+     Persona persona = new Persona(nombre, edad, NIF);
+
      //Buscar la persona en la agenda
-     agenda1.buscarPersona();
+     posicion = agenda1.buscarPersona(persona);
+
+     return posicion;
  }
 
 }

@@ -22,9 +22,18 @@ public class Agenda
   }
 
   //Busca una persona según su NIF
-  public int buscarPersona(NIF)
-  {
-
+  //Devuelve -1 si no se ha encontrado a la persona
+  public int buscarPersona(Persona persona)
+  { //Posicion de la persona a buscar en el vector
+    int posicion = -1;
+    for(int i=0;i<personas.length;i++)
+       if(personas[i]!=null)
+         {
+            if (persona.equals(personas[i]))
+              posicion = i;
+            i=personas.length;
+         }
+         return posicion;
   }
 
 
