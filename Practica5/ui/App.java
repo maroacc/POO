@@ -11,6 +11,8 @@ package Practica5.ui;
 
 import Practica5.util.Leer;
 import Practica5.dominio.Persona;
+import Practica5.negocio.Agenda;
+
 
 public class App
 {
@@ -18,15 +20,11 @@ public class App
   String nombre;
   int edad;
   String NIF;
-  Persona personas[] = new Persona[10];
 
   public static void main(String args[])
   { //Opcion del menu a introducir por teclado:
     String opcion;
-    //Instancia de la clase leer para poder leer por tecldo
-    Leer leer;
-
-
+    Agenda agenda1;
 
     //Mostrar el menu por pantalla
     System.out.println("##################################");
@@ -45,12 +43,7 @@ public class App
 
        switch (opcion) {
            case "1":
-                       for(int i=0;i<personas.length;i++)
-                         if(personas[i]==null)
-                         {
-                            personas[i] = crearPersona;
-                            i=personas.length;
-                         }
+
                     break;
            case "2":
                     break;
@@ -68,7 +61,7 @@ public class App
        }
   }
 
-  public Persona crearPersona()
+  public void crearPersona()
   {   System.out.println("Nombre: ");
       nombre = Leer.porTeclado();
       System.out.println("Edad: ");
@@ -77,7 +70,7 @@ public class App
       NIF    = Leer.porTeclado();
 
       Persona persona = new Persona(nombre, edad, NIF);
-      return Persona;
+      agenda1.crearPersona(persona);
   }
 
 
