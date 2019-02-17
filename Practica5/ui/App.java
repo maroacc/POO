@@ -43,9 +43,10 @@ public class App
 
        switch (opcion) {
            case "1":
-
+                    this.crearPersona();
                     break;
            case "2":
+                    this.buscarPersona();
                     break;
            case "3":
                     break;
@@ -61,17 +62,35 @@ public class App
        }
   }
 
+  public Persona leerDatosPersona()
+    {
+
+  }
+
   public void crearPersona()
-  {   System.out.println("Nombre: ");
+  {   //Lectura de los atributos de persona
+      System.out.println("Introduzca los datos sobre la persona a crear: ");
+      System.out.println("Nombre: ");
       nombre = Leer.porTeclado();
       System.out.println("Edad: ");
       edad   = Integer.parseInt(Leer.porTeclado());
       System.out.println("NIF: ");
       NIF    = Leer.porTeclado();
 
+      //Instancia de persona
       Persona persona = new Persona(nombre, edad, NIF);
+
+      //Agregar la persona a la agenda
       agenda1.crearPersona(persona);
   }
+ public void buscarPersona()
+ {   //Lectura del NIF de la persona a buscar
+     System.out.println("Introduzca el NIF de la persona que desea buscar: ");
+     System.out.println("NIF: ");
+     NIF    = Leer.porTeclado();
 
+     //Buscar la persona en la agenda
+     agenda1.buscarPersona();
+ }
 
 }
