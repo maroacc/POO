@@ -16,20 +16,18 @@ import Practica5.negocio.Agenda;
 
 public class App
 {
-  //Atributos de clase persona para ser leidos por teclado
-  String nombre;
-  int edad;
-  String NIF;
-
-  //Instancia de la agenda
-  Agenda agenda1;
-
-
   public static void main(String args[])
   { //Opcion del menu a introducir por teclado:
     String opcion;
     //posicion de la agenda
     int posicion;
+    //Atributos de clase persona para ser leidos por teclado
+    String nombre;
+    int edad;
+    String NIF;
+
+    //Instancia de la agenda
+    Agenda agenda1 = new Agenda();
 
     //Mostrar el menu por pantalla
     System.out.println("##################################");
@@ -48,10 +46,10 @@ public class App
 
        switch (opcion) {
            case "1":
-                    this.crearPersona();
+                    crearPersona();
                     break;
            case "2":
-                    posicion = this.buscarPersona();
+                    posicion = buscarPersona();
                     if (posicion == -1)
                       System.out.println("No existe la persona buscada.");
                     else
@@ -76,15 +74,17 @@ public class App
   //
   // }
 
-  public void crearPersona()
-  {   //Lectura de los atributos de persona
+  private void crearPersona()
+  {      Agenda agenda1;
+
+     //Lectura de los atributos de persona
       System.out.println("Introduzca los datos sobre la persona a crear: ");
       System.out.println("Nombre: ");
-      nombre = Leer.porTeclado();
+      String nombre = Leer.porTeclado();
       System.out.println("Edad: ");
-      edad   = Integer.parseInt(Leer.porTeclado());
+      int edad   = Integer.parseInt(Leer.porTeclado());
       System.out.println("NIF: ");
-      NIF    = Leer.porTeclado();
+      String NIF    = Leer.porTeclado();
 
       //Instancia de persona
       Persona persona = new Persona(nombre, edad, NIF);
@@ -95,17 +95,19 @@ public class App
 
 //Busca una personas
 //Devuelve -1 si no existe la persona buscada
- public int buscarPersona()
- {   //Guarda la posicion del vector en la que se encuentra la persona buscada
+ private int buscarPersona()
+ {       Agenda agenda1;
+
+     //Guarda la posicion del vector en la que se encuentra la persona buscada
      int posicion;
      //Lectura del NIF de la persona a buscar
      System.out.println("Introduzca los datos de la persona que desea buscar: ");
      System.out.println("Nombre: ");
-     nombre = Leer.porTeclado();
+     String nombre = Leer.porTeclado();
      System.out.println("Edad: ");
-     edad   = Integer.parseInt(Leer.porTeclado());
+     int edad = Integer.parseInt(Leer.porTeclado());
      System.out.println("NIF: ");
-     NIF    = Leer.porTeclado();
+     String NIF = Leer.porTeclado();
 
      //Instancia de persona
      Persona persona = new Persona(nombre, edad, NIF);
