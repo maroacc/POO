@@ -11,20 +11,27 @@ public class Persona
   //Atributos de instancia
   String nombre;
   int edad;
-  String NIF;
+  String nif;
 
 
     //Constructores
 
     public Persona()
-    {
-
+    { this.nombre = null;
+      this.edad = 0;
+      this.nif = null;
     }
 
-    public Persona(String nombre, int edad, String NIF)
+    public Persona(String nif)
+    { this.nombre = null;
+      this.edad = 0;
+      this.nif = nif;
+    }
+
+    public Persona(String nombre, int edad, String nif)
     { this.nombre = nombre;
       this.edad = edad;
-      this.NIF = NIF;
+      this.nif = nif;
 
     }
 
@@ -47,13 +54,13 @@ public class Persona
       { return edad;
 
       }
-    public void setNIF(String NIF)
-      { this.NIF = NIF;
+    public void setNif(String nif)
+      { this.nif = nif;
 
       }
 
-    public String getNIF()
-      { return NIF;
+    public String getNif()
+      { return nif;
 
       }
    @Override
@@ -62,9 +69,15 @@ public class Persona
        boolean igual = false;
 
        if (o instanceof Persona)
-        { persona = (Persona) o;
-          if (persona.getNIF() == this.getNIF())
-          igual = true;
+        {
+           persona = (Persona) o;
+           if (persona.getNif().equals(this.getNif()))
+            {System.out.println("Son iguales");
+            igual = true;}
+          else
+          { System.out.println("No son iguales");
+
+          }
         }
        return igual;
      }

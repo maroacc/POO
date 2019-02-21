@@ -19,17 +19,12 @@ public class App
   public static void main(String args[])
   { //Opcion del menu a introducir por teclado:
     String opcion;
-    //posicion de la agenda
-    int posicion;
-    //Atributos de clase persona para ser leidos por teclado
-    String nombre;
-    int edad;
-    String NIF;
-
+    // variable que guardaá el NIF pedido al usuario para realizar las funciones de la App
+    String nif;
     //Instancia de la agenda
     Agenda agenda1 = new Agenda();
 
-    //Mostrar el menu por pantalla
+  do{  //Mostrar el menu por pantalla
     System.out.println("##################################");
     System.out.println("#####         AGENDA         #####");
     System.out.println("##################################");
@@ -40,33 +35,53 @@ public class App
     System.out.println("#####  5. MOSTRAR LISTA      #####");
     System.out.println("##################################");
     System.out.println("#####  9. SALIR              #####");
+    System.out.println("##################################");
 
     //Leer la opcion del menu seleccionada
     opcion = Leer.porTeclado();
-
-       switch (opcion) {
+    System.out.println("OPCION: " + opcion);
+      switch (opcion) {
            case "1":
-                    crearPersona();
+                    crearPersona(agenda1);
                     break;
            case "2":
-                    posicion = buscarPersona();
+                    //Lectura del NIF de la persona a buscar
+                    System.out.println("Introduzca el NIF de la persona que desea buscar: ");
+                    System.out.println("NIF: ");
+                    nif = Leer.porTeclado();
+
+                    int posicion = buscarPersona(agenda1, nif);
                     if (posicion == -1)
                       System.out.println("No existe la persona buscada.");
                     else
-                      System.out.println("La persona se encuentra en la posicion " + posicion + "de la agenda.");
+                      System.out.println("La persona se encuentra en la posicion " + posicion + " de la agenda.");
                     break;
            case "3":
+                    //Lectura del NIF de la persona a eliminar
+                    System.out.println("Introduzca el NIF de la persona que desea eliminar: ");
+                    System.out.println("NIF: ");
+                    nif = Leer.porTeclado();
+                    eliminarPersona(agenda1, nif);
+
                     break;
            case "4":
+                   //Lectura del NIF de la persona a MODIFICAR
+                   System.out.println("Introduzca el NIF de la persona cuyos datos desea modificar: ");
+                   System.out.println("NIF: ");
+                   nif = Leer.porTeclado();
+                   modificarPersona(agenda1, nif);
+
                     break;
            case "5":
+                    System.out.println("Mostrando la Agenda de contactos: ");
+                    mostrarLista(agenda1);
                     break;
-           case "6":
+           case "9":
                     break;
 
            default: System.out.println("Opcion invalida");
-                    break;
-       }
+                    break;}
+    } while (opcion.equals("9")==false);
   }
 
   // public Persona leerDatosPersona()
@@ -74,8 +89,8 @@ public class App
   //
   // }
 
-  private void crearPersona()
-  {      Agenda agenda1;
+  private static void crearPersona(Agenda agenda1)
+  {
 
      //Lectura de los atributos de persona
       System.out.println("Introduzca los datos sobre la persona a crear: ");
@@ -84,10 +99,10 @@ public class App
       System.out.println("Edad: ");
       int edad   = Integer.parseInt(Leer.porTeclado());
       System.out.println("NIF: ");
-      String NIF    = Leer.porTeclado();
+      String nif    = Leer.porTeclado();
 
       //Instancia de persona
-      Persona persona = new Persona(nombre, edad, NIF);
+      Persona persona = new Persona(nombre, edad, nif);
 
       //Agregar la persona a la agenda
       agenda1.crearPersona(persona);
@@ -95,27 +110,63 @@ public class App
 
 //Busca una personas
 //Devuelve -1 si no existe la persona buscada
- private int buscarPersona()
- {       Agenda agenda1;
-
+ private static int buscarPersona(Agenda agenda1, String nif)
+ {
      //Guarda la posicion del vector en la que se encuentra la persona buscada
      int posicion;
-     //Lectura del NIF de la persona a buscar
-     System.out.println("Introduzca los datos de la persona que desea buscar: ");
-     System.out.println("Nombre: ");
-     String nombre = Leer.porTeclado();
-     System.out.println("Edad: ");
-     int edad = Integer.parseInt(Leer.porTeclado());
-     System.out.println("NIF: ");
-     String NIF = Leer.porTeclado();
-
-     //Instancia de persona
-     Persona persona = new Persona(nombre, edad, NIF);
 
      //Buscar la persona en la agenda
-     posicion = agenda1.buscarPersona(persona);
+     posicion = agenda1.buscarPersona(nif);
 
      return posicion;
  }
+
+ //Elimina una persona
+  private static void eliminarPersona(Agenda agenda1, String nif)
+  {   //Guarda la posicion del vector en la que se encuentra la persona buscada
+      int posicion;
+      //Buscar la persona en la agenda
+      posicion = agenda1.buscarPersona(nif);
+      if (posicion == -1)
+        { System.out.println("La persona que desea eliminar no existe en la agenda");
+        }
+     else
+       //Elimina a la persona que se encuentra en la posicion del vector escogida
+       agenda1.eliminarPersona(posicion);
+  }
+
+  //Elimina una persona
+   private static void modificarPersona(Agenda agenda1, String nif)
+   {   //Guarda la posicion del vector en la que se encuentra la persona buscada
+       int posicion;
+       //Buscar la persona en la agenda
+       posicion = agenda1.buscarPersona(nif);
+       if (posicion == -1)
+         { System.out.println("La persona que desea modificar no existe en la agenda");
+         }
+      else
+        { //Lectura de los atributos de persona
+           System.out.println("Introduzca los datos sobre la persona a crear: ");
+           System.out.println("Nombre: ");
+           String nombre = Leer.porTeclado();
+           System.out.println("Edad: ");
+           int edad   = Integer.parseInt(Leer.porTeclado());
+           System.out.println("NIF: ");
+           nif    = Leer.porTeclado();
+
+            //Modifica a la persona que se encuentra en la posicion del vector escogida
+            agenda1.modificarPersona(posicion, nombre, edad, nif);
+        }
+   }
+
+  //Muestra la agenda
+   private static void mostrarLista(Agenda agenda1)
+   {  for (int posicion = 0; posicion < 10; posicion++)
+     { Persona persona = agenda1.mostrarElemento(posicion);
+       if (persona != null)
+         {System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ "NIF: " + persona.getNif());
+         }
+     }
+   }
 
 }
