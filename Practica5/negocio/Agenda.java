@@ -28,13 +28,11 @@ public class Agenda
     int posicion = -1;
     Persona persona = new Persona(nif);
     for(int i=0;i<personas.length;i++)
-    {
-       if(personas[i]!=null)
+    { if(personas[i]!=null)
          {
             if (persona.equals(personas[i]))
               { posicion = i;
               }
-            i=personas.length;
 
          }
     }

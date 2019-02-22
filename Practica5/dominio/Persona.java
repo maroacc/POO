@@ -67,17 +67,13 @@ public class Persona
    public boolean equals(Object o)
      { Persona persona;
        boolean igual = false;
-
+       
        if (o instanceof Persona)
         {
            persona = (Persona) o;
            if (persona.getNif().equals(this.getNif()))
-            {System.out.println("Son iguales");
-            igual = true;}
-          else
-          { System.out.println("No son iguales");
-
-          }
+            {igual = true;
+            }
         }
        return igual;
      }

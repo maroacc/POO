@@ -39,7 +39,6 @@ public class App
 
     //Leer la opcion del menu seleccionada
     opcion = Leer.porTeclado();
-    System.out.println("OPCION: " + opcion);
       switch (opcion) {
            case "1":
                     crearPersona(agenda1);
@@ -164,7 +163,7 @@ public class App
    {  for (int posicion = 0; posicion < 10; posicion++)
      { Persona persona = agenda1.mostrarElemento(posicion);
        if (persona != null)
-         {System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ "NIF: " + persona.getNif());
+         {System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ " NIF: " + persona.getNif());
          }
      }
    }
