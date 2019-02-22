@@ -9,16 +9,16 @@ public abstract class Animal
 
   //Atributos de Instancia
     //Peso en kg del animal
-    private float peso;
+    private double peso;
 
-    public void setPeso(float peso)
+    public void setPeso(double peso)
       { this.peso = peso;
 
       }
 
-    public float getPeso()
+    public double getPeso()
       { return peso;
 
       }
-    public abstract float comer();
+    public abstract double comer();
 }
