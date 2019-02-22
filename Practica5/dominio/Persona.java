@@ -17,21 +17,21 @@ public class Persona
     //Constructores
 
     public Persona()
-    { this.nombre = null;
-      this.edad = 0;
-      this.nif = null;
+    { this.setNombre(null);
+      this.setEdad(0);
+      this.setNif(null);
     }
 
     public Persona(String nif)
-    { this.nombre = null;
-      this.edad = 0;
-      this.nif = nif;
+    { this.setNombre(null);
+      this.setEdad(0);
+      this.setNif(nif);
     }
 
     public Persona(String nombre, int edad, String nif)
-    { this.nombre = nombre;
-      this.edad = edad;
-      this.nif = nif;
+    { this.setNombre(nombre);
+      this.setEdad(edad);
+      this.setNif(nif);
 
     }
 
@@ -77,7 +77,7 @@ public class Persona
         }
        return igual;
      }
-     
+
   @Override
   public String toString()
     { StringBuilder sb = new StringBuilder();
