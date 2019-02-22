@@ -8,7 +8,7 @@ import Practica5.dominio.Persona;
 
 public class Agenda
 
-{  Persona personas[] = new Persona[10];
+{  private Persona personas[] = new Persona[10];
 
   //Agrega una nueva persona a la base de datos
   public void crearPersona(Persona persona)

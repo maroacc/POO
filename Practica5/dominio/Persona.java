@@ -9,9 +9,9 @@ public class Persona
   //Atributos de Clase
 
   //Atributos de instancia
-  String nombre;
-  int edad;
-  String nif;
+  private String nombre;
+  private int edad;
+  private String nif;
 
 
     //Constructores
@@ -67,7 +67,7 @@ public class Persona
    public boolean equals(Object o)
      { Persona persona;
        boolean igual = false;
-       
+
        if (o instanceof Persona)
         {
            persona = (Persona) o;

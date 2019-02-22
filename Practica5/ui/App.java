@@ -19,26 +19,12 @@ public class App
   public static void main(String args[])
   { //Opcion del menu a introducir por teclado:
     String opcion;
-    // variable que guardaá el NIF pedido al usuario para realizar las funciones de la App
+    // variable que guardará el NIF pedido al usuario para realizar las funciones de la App
     String nif;
     //Instancia de la agenda
     Agenda agenda1 = new Agenda();
 
-  do{  //Mostrar el menu por pantalla
-    System.out.println("##################################");
-    System.out.println("#####         AGENDA         #####");
-    System.out.println("##################################");
-    System.out.println("####   1. CREAR PERSONA      #####");
-    System.out.println("#####  2. BUSCAR PERSONA     #####");
-    System.out.println("#####  3. ELIMINAR PERSONA   #####");
-    System.out.println("#####  4. MODIFICAR PERSONA  #####");
-    System.out.println("#####  5. MOSTRAR LISTA      #####");
-    System.out.println("##################################");
-    System.out.println("#####  9. SALIR              #####");
-    System.out.println("##################################");
-
-    //Leer la opcion del menu seleccionada
-    opcion = Leer.porTeclado();
+  do{ opcion = mostrarMenu();
       switch (opcion) {
            case "1":
                     crearPersona(agenda1);
@@ -145,7 +131,7 @@ public class App
          }
       else
         { //Lectura de los atributos de persona
-           System.out.println("Introduzca los datos sobre la persona a crear: ");
+           System.out.println("Introduzca los nuevos datos sobre la persona seleccionada: ");
            System.out.println("Nombre: ");
            String nombre = Leer.porTeclado();
            System.out.println("Edad: ");
@@ -166,6 +152,27 @@ public class App
          {System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ " NIF: " + persona.getNif());
          }
      }
+   }
+
+   //Muestra por pantalla el menú con las opciones de funciones a elegir por el usuario
+   private static String mostrarMenu()
+   { System.out.println("##################################");
+     System.out.println("#####         AGENDA         #####");
+     System.out.println("##################################");
+     System.out.println("####   1. CREAR PERSONA      #####");
+     System.out.println("#####  2. BUSCAR PERSONA     #####");
+     System.out.println("#####  3. ELIMINAR PERSONA   #####");
+     System.out.println("#####  4. MODIFICAR PERSONA  #####");
+     System.out.println("#####  5. MOSTRAR LISTA      #####");
+     System.out.println("##################################");
+     System.out.println("#####  9. SALIR              #####");
+     System.out.println("##################################");
+
+     //Leer la opcion del menu seleccionada
+     String opcion = Leer.porTeclado();
+
+     return opcion;
+
    }
 
 }
