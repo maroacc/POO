@@ -24,7 +24,8 @@ public class App
     //Instancia de la agenda
     Agenda agenda1 = new Agenda();
 
-  do{ opcion = mostrarMenu();
+  do{ //Muestra por pantalla el Menú
+      opcion = mostrarMenu();
       switch (opcion) {
            case "1":
                     crearPersona(agenda1);
@@ -149,12 +150,14 @@ public class App
    {  for (int posicion = 0; posicion < 10; posicion++)
      { Persona persona = agenda1.mostrarElemento(posicion);
        if (persona != null)
-         {System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ " NIF: " + persona.getNif());
+         {//System.out.println("NOMBRE: "+ persona.getNombre() + " EDAD: " + persona.getEdad()+ " NIF: " + persona.getNif());
+          System.out.println(persona.toString());
          }
      }
    }
 
-   //Muestra por pantalla el menú con las opciones de funciones a elegir por el usuario
+   //1. Muestra por pantalla el menú con las opciones de funciones a elegir por el usuario
+   //2. Lee la opción elegida y la devuelve
    private static String mostrarMenu()
    { System.out.println("##################################");
      System.out.println("#####         AGENDA         #####");

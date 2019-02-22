@@ -77,4 +77,17 @@ public class Persona
         }
        return igual;
      }
+     
+  @Override
+  public String toString()
+    { StringBuilder sb = new StringBuilder();
+      sb.append("NOMBRE: ")
+        .append(nombre)
+        .append(" EDAD: ")
+        .append(edad)
+        .append(" NIF: ")
+        .append(nif);
+
+        return sb.toString();
+    }
 }
