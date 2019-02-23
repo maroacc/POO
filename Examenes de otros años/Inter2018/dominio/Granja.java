@@ -24,11 +24,13 @@ class Granja
     this.setLocalidad(localidad);
   }
 
+  //Getters y setters
+
   public void setNombreganadero(String nombreGanadero)
     { this.nombreGanadero = nombreGanadero;
 
     }
-  public String getNombreganadero()
+  public String getNombreGanadero()
     { return nombreGanadero;
 
     }
@@ -42,6 +44,7 @@ class Granja
 
     }
 
+  //Otros Métodos
   public void addAnimal(Animal animal)
     { for (int i = 0; i<animales.length; i++)
         if (animales[i] != null)
@@ -57,5 +60,20 @@ class Granja
           if (animales[i] != null)
             cantidadPienso = cantidadPienso + animales[i].comer();
       return Math.floor(cantidadPienso);
+    }
+
+  @Override
+  public String toString()
+    { StringBuilder sb = new StringBuilder();
+      sb.append("NOMBRE GANADERO: ")
+        .append(this.getNombreGanadero())
+        .append(" LOCALIDAD: ")
+        .append(this.getLocalidad())
+        .append(" CANTIDAD PIENSO: ")
+        .append(this.cantidadPienso());
+        for (int i = 0; i<animales.length; i++)
+            if (animales[i] != null)
+              sb.append(animales[i].toString());
+      return sb.toString();
     }
 }

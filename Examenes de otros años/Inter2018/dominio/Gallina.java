@@ -24,4 +24,13 @@ public class Gallina extends Animal
     { double cantidadPienso = 0.2 * super.getPeso();
       return cantidadPienso;
     }
+  @Override
+  public String toString()
+    { StringBuilder sb = new StringBuilder();
+      sb.append("GALLINA: Peso = ")
+        .append(this.getPeso())
+        .append(" Cantidad pienso: ")
+        .append(this.comer());
+      return sb.toString();
+      }
 }

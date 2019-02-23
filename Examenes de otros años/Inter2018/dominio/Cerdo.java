@@ -22,4 +22,14 @@ public class Cerdo extends Animal
    { double cantidadPienso = 1.5 * super.getPeso() + 1;
      return cantidadPienso;
    }
+
+ @Override
+ public String toString()
+   { StringBuilder sb = new StringBuilder();
+     sb.append("CERDO: Peso = ")
+       .append(this.getPeso())
+       .append(" Cantidad pienso: ")
+       .append(this.comer());
+     return sb.toString();
+     }
 }

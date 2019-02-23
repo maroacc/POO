@@ -22,4 +22,14 @@ public class CerdoNoIberico extends Cerdo
    { double cantidadPienso = 1.4 * super.getPeso();
      return cantidadPienso;
    }
+
+ @Override
+ public String toString()
+   { StringBuilder sb = new StringBuilder();
+     sb.append("CERDO NO IBERICO: Peso = ")
+       .append(this.getPeso())
+       .append(" Cantidad pienso: ")
+       .append(this.comer());
+     return sb.toString();
+     }
 }

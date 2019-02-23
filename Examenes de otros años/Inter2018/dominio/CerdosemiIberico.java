@@ -22,4 +22,14 @@ public class CerdoSemiIberico extends Cerdo
    { double cantidadPienso = 1.1 * super.getPeso();
      return cantidadPienso;
    }
+
+ @Override
+ public String toString()
+   { StringBuilder sb = new StringBuilder();
+     sb.append("CERDO SEMI IBERICO: Peso = ")
+       .append(this.getPeso())
+       .append(" Cantidad pienso: ")
+       .append(this.comer());
+     return sb.toString();
+     }
 }

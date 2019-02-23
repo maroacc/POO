@@ -40,4 +40,16 @@ public class Vaca extends Animal
         return cantidadPienso;
       }
 
+    @Override
+    public String toString()
+      { StringBuilder sb = new StringBuilder();
+        sb.append("VACA: Peso = ")
+          .append(this.getPeso())
+          .append("Nivel de pureza = ")
+          .append(this.getNivelDePureza())
+          .append(" Cantidad pienso: ")
+          .append(this.comer());
+        return sb.toString();
+        }
+
 }
