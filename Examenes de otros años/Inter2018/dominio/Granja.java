@@ -4,7 +4,7 @@
 
 package Inter2018.dominio;
 
-class Granja
+public class Granja
 { //Atributos de Clase
   public final int N_MAX_ANIMALES = 10;
   //Atributos de instancia
@@ -47,8 +47,9 @@ class Granja
   //Otros Métodos
   public void addAnimal(Animal animal)
     { for (int i = 0; i<animales.length; i++)
-        if (animales[i] != null)
-          animales[i] = animal;
+        if (animales[i] == null)
+          {animales[i] = animal;
+          i = animales.length;}
 
     }
   //Devuelve la cantidad total de pienso necesaria para la Granja
