@@ -6,6 +6,10 @@ package Inter2018.dominio;
 
 public class Vaca extends Animal
 { //Atributos de Clase
+    //Nivele mínimo y máximo de pureza
+    //Ambos inclusive
+    public final int NIVEL_PUREZA_MIN = 1;
+    public final int NIVEL_PUREZA_MAX = 3;
 
   //Atributos de instancia
     //Nivel de pureza. Puede tomar valores de 1 a 3
@@ -22,7 +26,8 @@ public class Vaca extends Animal
       }
 
     public void setNivelDePureza(int nivelDePureza)
-      { this.nivelDePureza = nivelDePureza;
+      { if (nivelDePureza >= NIVEL_PUREZA_MIN && nivelDePureza <= NIVEL_PUREZA_MAX)
+          this.nivelDePureza = nivelDePureza;
       }
 
     public int getNivelDePureza()
