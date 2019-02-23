@@ -12,6 +12,18 @@ class Granja
   private String localidad;
   private Animal animales[] = new Animal[N_MAX_ANIMALES];
 
+  //Constructores
+
+  public Granja()
+  { this.setNombreganadero(null);
+    this.setLocalidad(null);
+  }
+
+  public Granja(String nombreGanadero, String localidad)
+  { this.setNombreganadero(nombreGanadero);
+    this.setLocalidad(localidad);
+  }
+
   public void setNombreganadero(String nombreGanadero)
     { this.nombreGanadero = nombreGanadero;
 
