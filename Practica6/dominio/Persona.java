@@ -1,7 +1,7 @@
 //Clase persona
 //poseen un nombre, una edad y un NIF
 
-package Practica5.dominio;
+package Practica6.dominio;
 
 
 public class Persona
