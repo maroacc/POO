@@ -1,3 +1,6 @@
+//Clase que extiende de ActionListener
+//Cuando un botón es pulsado, aumenta su tamaño y se pone más brillante
+
 package PracticaFinal.ui;
 import PracticaFinal.dominio.Album;
 import PracticaFinal.logica.ReproductorMusica;
@@ -32,7 +35,7 @@ import java.awt.Image;
 import java.awt.Dimension;
 
 public class ActionListenerMiJButton implements ActionListener
-{ public static final float FONT_SIZE = 30;
+{ public static final float FONT_SIZE = 23;
   private MiJButton btnSeleccionado;
   private MiJButton btn1;
   private MiJButton btn2;

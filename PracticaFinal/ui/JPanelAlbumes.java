@@ -1,7 +1,8 @@
 package PracticaFinal.ui;
+import PracticaFinal.dominio.Representable;
 import PracticaFinal.dominio.Album;
-import PracticaFinal.logica.ReproductorMusica;
 
+import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -31,35 +32,25 @@ import java.awt.Dimension;
 
 
 public class JPanelAlbumes extends MiJPanel
-{ ReproductorMusica reproductorMusica;
+{ MiJLabel lblTitulo = new MiJLabel();
+  Collection collection = new ArrayList();
 
-  public JPanelAlbumes(ReproductorMusica reproductorMusica, Color color)
+  public JPanelAlbumes(String titulo, Collection collection, Color color)
     { super(color);
-      this.reproductorMusica = reproductorMusica;
+      this.setTitulo(titulo);
+      lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
+      lblTitulo.setFont(JVentana.FONT_BIG_TITLE);
+      this.add(lblTitulo, BorderLayout.NORTH);
 
-      this.setLayout(new BorderLayout());
+      this.setLayout(new BorderLayout(4, 40));
       this.setBorder(BorderFactory.createEmptyBorder());
-      //Titulo del panel
-      JLabel lblAlbumes = new MiJLabel("  ¡lbumes");
-      lblAlbumes.setHorizontalAlignment(SwingConstants.LEFT);
-      lblAlbumes.setFont(JVentana.FONT_BIG_TITLE);
-      this.add(lblAlbumes, BorderLayout.NORTH);
+
 
       MiJPanel panelListaAlbumes = new MiJPanel(JVentana.COLOR_SECUNDARIO);
       this.add(panelListaAlbumes, BorderLayout.CENTER);
       panelListaAlbumes.setLayout(new GridLayout(3, 4, 16, 50));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/REPUTATION.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
-      reproductorMusica.addAlbum(new Album("Reputation", new ImageIcon("PracticaFinal/caratulas/RIO.jpg")));
 
-      ArrayList albumes = reproductorMusica.getAlbumes();
-      Iterator it = albumes.iterator();
+      Iterator it = collection.iterator();
       while (it.hasNext())
       {		//Panel para cada Album. Incluye car√°tula, nombre y artista al que pertenece
           MiJPanel panelAlbum = new MiJPanel(JVentana.COLOR_SECUNDARIO);
@@ -67,18 +58,26 @@ public class JPanelAlbumes extends MiJPanel
           panelAlbum.setPreferredSize(new Dimension(252,300));
           panelAlbum.setMaximumSize(new Dimension(252,300));
 
-          Album album = (Album) it.next();
-          //panelListaAlbumes.add(new JLabel(album.getCaratula()));
-          panelAlbum.add(new MiJLabel(album.getCaratula()), BorderLayout.NORTH);
-          panelAlbum.add(new MiJLabel(album.getNombre()), BorderLayout.CENTER);
+          Representable rpr = (Representable) it.next();
+          panelAlbum.add(new MiJLabel(rpr.getNombre()), BorderLayout.CENTER);
+          MiJButton mjb = new MiJButton(rpr.getImageIcon(), rpr.getImageIcon());
+          mjb.setHorizontalAlignment(SwingConstants.CENTER);
+          panelAlbum.add(mjb, BorderLayout.NORTH);
           MiJLabel lbl = new MiJLabel("Duran Duran");
           lbl.setForeground(lbl.getForeground().darker());
           panelAlbum.add(lbl, BorderLayout.SOUTH);
           panelListaAlbumes.add(panelAlbum);
       }
 
-
-
     }
+    public void setTitulo(String titulo)
+      { //Titulo del panel
+        lblTitulo.setText(titulo);
 
+      }
+
+    public void setCollection(Collection collection)
+      { this.collection = collection;
+
+      }
 }
