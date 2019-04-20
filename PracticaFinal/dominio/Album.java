@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 public class Album implements Representable
 { private String nombre;
   private ImageIcon caratula;
-  private ArrayList canciones;
+  private ArrayList canciones = new ArrayList();
 
   public Album()
     { this.setNombre(null);
@@ -55,6 +55,10 @@ public class Album implements Representable
     }
   public ArrayList getCanciones()
     { return canciones;
+
+    }
+  public void addCancion(Cancion cancion)
+    { canciones.add(cancion);
 
     }
 }

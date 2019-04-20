@@ -8,11 +8,15 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineEvent;
+
 
 
 
 public class Cancion
-{ private String nombre;
+{ public static final long TIEMPO_MINIMO = (long) 10000000;
+  private String nombre;
   private String filePath;
   Long tiempoReproduccionActual;
   Clip clip;
@@ -35,8 +39,7 @@ public class Cancion
       }
 
       catch (Exception e)
-      { System.out.println("Su puta vida");
-        e.printStackTrace();
+      { e.printStackTrace();
 
       }
 
@@ -56,9 +59,27 @@ public class Cancion
     { this.estado = estado;
 
     }
+  public String getEstado()
+    { return estado;
+
+    }
+  public String getNombre()
+    { return nombre;
+
+    }
+
+  public long getTiempoReproduccionActual()
+    { return tiempoReproduccionActual;
+
+    }
+
+  public Clip getClip()
+    { return clip;
+
+    }
 
   public void play()
-    { clip.start();
+    { this.getClip().start();
       this.setEstado("play");
     }
 
@@ -69,17 +90,17 @@ public class Cancion
       //       System.out.println("audio is already paused");
       //       return;
       //   }
-        this.tiempoReproduccionActual = this.clip.getMicrosecondPosition();
-        clip.stop();
+        this.tiempoReproduccionActual = this.getClip().getMicrosecondPosition();
+        this.getClip().stop();
         estado = "pausa";
     }
 
   public void resume() throws UnsupportedAudioFileException, IOException, LineUnavailableException
     { try
         {if (estado.equals("play")==false)
-            { clip.close();
+            { this.getClip().close();
               resetAudioStream();
-              clip.setMicrosecondPosition(tiempoReproduccionActual);
+              this.getClip().setMicrosecondPosition(tiempoReproduccionActual);
               this.play();
             }
         }
@@ -90,12 +111,14 @@ public class Cancion
 
     }
   public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException
-    {   try { clip.stop();
-              clip.close();
+    {   try { this.getClip().stop();
+              this.getClip().close();
               resetAudioStream();
               tiempoReproduccionActual = 0L;
-              clip.setMicrosecondPosition(0);
+              this.getClip().setMicrosecondPosition(0);
               this.play();
+              if (this.getEstado() == "pausa")
+                this.pause();
             }
         catch (Exception e)
           { e.printStackTrace();
@@ -105,8 +128,8 @@ public class Cancion
 
   public void stop() throws UnsupportedAudioFileException, IOException, LineUnavailableException
     { try { tiempoReproduccionActual = 0L;
-            clip.stop();
-            clip.close();
+            this.getClip().stop();
+            this.getClip().close();
           }
       catch (Exception e)
         { e.printStackTrace();
@@ -116,34 +139,34 @@ public class Cancion
 
 
     public void jump(long tiempoSalto) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    { try { if (tiempoSalto > 0 && tiempoSalto < clip.getMicrosecondLength())
-                {
-                    clip.stop();
-                    clip.close();
-                    resetAudioStream();
-                    tiempoReproduccionActual = tiempoSalto;
-                    clip.setMicrosecondPosition(tiempoSalto);
-                    this.play();
-                }
+      { try { if (tiempoSalto > 0 && tiempoSalto < this.getClip().getMicrosecondLength())
+                  {
+                      this.getClip().stop();
+                      this.getClip().close();
+                      resetAudioStream();
+                      tiempoReproduccionActual = tiempoSalto;
+                      this.getClip().setMicrosecondPosition(tiempoSalto);
+                      this.play();
+                  }
 
-           }
-      catch (Exception e)
-        { e.printStackTrace();
+             }
+        catch (Exception e)
+          { e.printStackTrace();
 
-        }
-
-    }
+          }
+      }
 
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {   try { audioInputStream = AudioSystem.getAudioInputStream(
-              new File(filePath).getAbsoluteFile());
-              clip.open(audioInputStream);
-              clip.loop(Clip.LOOP_CONTINUOUSLY);
+      {   try { audioInputStream = AudioSystem.getAudioInputStream(
+                new File(filePath).getAbsoluteFile());
+                this.getClip().open(audioInputStream);
+                this.getClip().loop(Clip.LOOP_CONTINUOUSLY);
 
-            }
-        catch (Exception e)
-            { e.printStackTrace();
+              }
+          catch (Exception e)
+              { e.printStackTrace();
 
-            }
-    }
+              }
+      }
+
 }
