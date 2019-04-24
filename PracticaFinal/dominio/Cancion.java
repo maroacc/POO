@@ -15,12 +15,12 @@ import javax.sound.sampled.LineEvent;
 
 
 public class Cancion
-{ public static final long TIEMPO_MINIMO = (long) 10000000;
+{ public static final long TIEMPO_MINIMO = (long) 1000000;
   private String nombre;
   private String filePath;
   Long tiempoReproduccionActual;
   Clip clip;
-  //Estado actual (play, pausa...)
+  //Estado actual (play, pause...)
   String estado;
   AudioInputStream audioInputStream;
 
@@ -69,7 +69,7 @@ public class Cancion
     }
 
   public long getTiempoReproduccionActual()
-    { return tiempoReproduccionActual;
+    { return this.getClip().getMicrosecondPosition();
 
     }
 
@@ -92,10 +92,10 @@ public class Cancion
       //   }
         this.tiempoReproduccionActual = this.getClip().getMicrosecondPosition();
         this.getClip().stop();
-        estado = "pausa";
+        estado = "pause";
     }
 
-  public void resume() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+  public void resume() //throws UnsupportedAudioFileException, IOException, LineUnavailableException
     { try
         {if (estado.equals("play")==false)
             { this.getClip().close();
@@ -103,7 +103,7 @@ public class Cancion
               this.getClip().setMicrosecondPosition(tiempoReproduccionActual);
               this.play();
             }
-        }
+         }
       catch (Exception e)
         { e.printStackTrace();
 
@@ -117,7 +117,7 @@ public class Cancion
               tiempoReproduccionActual = 0L;
               this.getClip().setMicrosecondPosition(0);
               this.play();
-              if (this.getEstado() == "pausa")
+              if (this.getEstado() == "pause")
                 this.pause();
             }
         catch (Exception e)
@@ -160,7 +160,6 @@ public class Cancion
       {   try { audioInputStream = AudioSystem.getAudioInputStream(
                 new File(filePath).getAbsoluteFile());
                 this.getClip().open(audioInputStream);
-                this.getClip().loop(Clip.LOOP_CONTINUOUSLY);
 
               }
           catch (Exception e)

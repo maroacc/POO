@@ -9,6 +9,7 @@ import PracticaFinal.logica.GestorReproductorMusica;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -58,7 +59,7 @@ public class JVentana extends JFrame
 
   private MiJButton btnInicio = new MiJButton("Inicio", new ImageIcon("PracticaFinal/iconos/home-icon-silhouette.png"));
   private MiJButton btnArtistas = new MiJButton("Artistas", new ImageIcon("PracticaFinal/iconos/karaoke-microphone-icon.png"));
-  private MiJButton btnAlbumes = new MiJButton("ï¿½lbumes", new ImageIcon("PracticaFinal/iconos/compact-disc.png"));
+  private MiJButton btnAlbumes = new MiJButton("Álbumes", new ImageIcon("PracticaFinal/iconos/compact-disc.png"));
   private MiJButton btnCanciones = new MiJButton("Canciones", new ImageIcon("PracticaFinal/iconos/music-player.png"));
   private MiJButton btnPlayLists = new MiJButton("PlayLists", new ImageIcon("PracticaFinal/iconos/playlist.png"));
 
@@ -66,14 +67,14 @@ public class JVentana extends JFrame
   private MiJLabel lblCancion = new MiJLabel();
   private MiJLabel lblArtista = new MiJLabel("Taylor Swift");
 
-  private MiJButton btnShuffle = new MiJButton(new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-grey.png"), new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-white.png"));
+  private MiJButtonDosEstados btnShuffle = new MiJButtonDosEstados(new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-grey.png"), new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-white.png"), new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-blue.png"), new ImageIcon("PracticaFinal/iconos/shuffle-arrows-hand-drawn-symbol-cyan.png"));
   private MiJButton btnPrevious = new MiJButton(new ImageIcon("PracticaFinal/iconos/previous-grey.png"), new ImageIcon("PracticaFinal/iconos/previous-white.png"));
   private MiJButtonDosEstados btnPlay = new MiJButtonDosEstados(new ImageIcon("PracticaFinal/iconos/play-juan-grey.png"), new ImageIcon("PracticaFinal/iconos/play-juan-white.png"), new ImageIcon("PracticaFinal/iconos/pause-juan-grey.png"), new ImageIcon("PracticaFinal/iconos/pause-juan-white.png"));
   private MiJButton btnNext = new MiJButton(new ImageIcon("PracticaFinal/iconos/next-grey.png"), new ImageIcon("PracticaFinal/iconos/next-white.png"));
-  private MiJButton btnRepeat = new MiJButton(new ImageIcon("PracticaFinal/iconos/repeat-grey.png"), new ImageIcon("PracticaFinal/iconos/repeat-white.png"));
+  private MiJButtonDosEstados btnRepeat = new MiJButtonDosEstados(new ImageIcon("PracticaFinal/iconos/repeat-grey.png"), new ImageIcon("PracticaFinal/iconos/repeat-white.png"), new ImageIcon("PracticaFinal/iconos/repeat-blue.png"), new ImageIcon("PracticaFinal/iconos/repeat-cyan.png"));
 
   private MiJLabel lblTiempoReproduccion = new MiJLabel("0:58");
-  private MiJLabel lblDuracion = new MiJLabel("3:58");
+  private MiJLabel lblDuracion;
   private JSlider sliderEnReproduccion = new JSlider();
 
   public static final Font FONT_REGULAR = new Font("SANS_SERIF", Font.BOLD, 16);
@@ -88,10 +89,11 @@ public class JVentana extends JFrame
   }
 
   public JVentana()
-    { try { this.getAlbumEnReproduccion().addCancion(new Cancion("Delicatte", "PracticaFinal/audios/taylor-swift-delicate.wav"));
-            this.getAlbumEnReproduccion().addCancion(new Cancion("Delicatte", "PracticaFinal/audios/TaylorSwift/01 ...Ready For It_.wav"));
-            this.getAlbumEnReproduccion().addCancion(new Cancion("Delicatte", "PracticaFinal/audios/TaylorSwift/03 I Did Something Bad.wav"));
+    { try { this.getAlbumEnReproduccion().addCancion(new Cancion("Two Bros", "PracticaFinal/audios/two_bros.wav"));
+            this.getAlbumEnReproduccion().addCancion(new Cancion("Ready?", "PracticaFinal/audios/TaylorSwift/01 ...Ready For It_.wav"));
+            this.getAlbumEnReproduccion().addCancion(new Cancion("I did Something bad", "PracticaFinal/audios/TaylorSwift/03 I Did Something Bad.wav"));
             this.setCancionEnReproduccion((Cancion) this.getAlbumEnReproduccion().getCanciones().get(0));
+            lblDuracion = new MiJLabel(String.valueOf(this.getCancionEnReproduccion().getClip().getMicrosecondLength()/1000000));
             this.iniciarComponentes();
             this.iniciarJFrame();
           }
@@ -126,24 +128,22 @@ public class JVentana extends JFrame
        reproductorMusica.addArtista(new Artista("Taylor Swift", new ImageIcon("PracticaFinal/caratulas/REPUTATION.jpg")));
        reproductorMusica.addArtista(new Artista("Taylor Swift", new ImageIcon("PracticaFinal/caratulas/REPUTATION.jpg")));
 
-      //Aï¿½adir los paneles de la ventana
       this.iniciarPanelPrincipal("   Albumes", reproductorMusica.getAlbumes());
       this.setPanelSuperior();
       this.setPanelIzquierdo();
       this.setPanelInferior();
     }
   public void iniciarPanelPrincipal(String title, Collection collection)
-    {   panelPrincipal = new JPanelAlbumes(title, collection, this.COLOR_SECUNDARIO);
-        jsp = new JScrollPane(panelPrincipal);
+    {   jsp = new JScrollPane(new JPanelBiblioteca(title, collection, this.COLOR_SECUNDARIO));
         jsp.setBorder(BorderFactory.createEmptyBorder());
         this.add(jsp, BorderLayout.CENTER);
     }
   public void setPanelPrincipal(String title, Collection collection)
-    { jsp.remove(panelPrincipal);
-      panelPrincipal = new JPanelAlbumes(title, collection, this.COLOR_SECUNDARIO);
-      jsp = new JScrollPane(panelPrincipal);
-      jsp.setBorder(BorderFactory.createEmptyBorder());
-      this.add(jsp, BorderLayout.CENTER);
+    { jsp.setVisible(false);
+      JScrollPane jsp2 = new JScrollPane(new JPanelBiblioteca(title, collection, this.COLOR_SECUNDARIO));
+      jsp2.setBorder(BorderFactory.createEmptyBorder());
+      this.add(jsp2, BorderLayout.CENTER);
+
     }
 
   private void setPanelSuperior()
@@ -183,7 +183,7 @@ public class JVentana extends JFrame
             public void actionPerformed(ActionEvent e)
               {  super.actionPerformed(e);
                  JVentana.this.setPanelPrincipal("   Artistas", reproductorMusica.getArtistas());
-
+                 //JVentana.this.repaint();
               }
 
 
@@ -238,12 +238,48 @@ public class JVentana extends JFrame
       panelInferiorCentral.add(panelBotonesReproduccion, BorderLayout.CENTER);
       panelBotonesReproduccion.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 4));
       panelBotonesReproduccion.add(btnShuffle);
+      btnShuffle.addMouseListener(new MouseAdapter()
+        { @Override
+          public void mouseEntered(MouseEvent me)
+            { if (btnShuffle.getEstado() == MiJButtonDosEstados.ESTADO_1)
+              btnShuffle.setIcon(btnShuffle.getIcon1Bright());
+              else
+              btnShuffle.setIcon(btnShuffle.getIcon2Bright());
+            }
+          @Override
+          public void mouseExited(MouseEvent me)
+            { if (btnShuffle.getEstado() == MiJButtonDosEstados.ESTADO_1)
+              btnShuffle.setIcon(btnShuffle.getIcon1Default());
+              else
+              btnShuffle.setIcon(btnShuffle.getIcon2Default());
+            }
+        });
+      btnShuffle.addActionListener(new ActionListener()
+        { @Override
+          public void actionPerformed(ActionEvent e)
+            { if (btnShuffle.getEstado() == MiJButtonDosEstados.ESTADO_1)
+              { btnShuffle.setIcon(btnShuffle.getIcon2Bright());
+                btnShuffle.setEstado(MiJButtonDosEstados.ESTADO_2);
+                btnRepeat.setIcon(btnRepeat.getIcon1Default());
+                btnRepeat.setEstado(MiJButtonDosEstados.ESTADO_1);
+                reproductorMusica.setModo(GestorReproductorMusica.MODO_ALEATORIO);
+              }
+              else
+              { btnShuffle.setIcon(btnShuffle.getIcon1Bright());
+                btnShuffle.setEstado(MiJButtonDosEstados.ESTADO_1);
+                reproductorMusica.setModo(GestorReproductorMusica.MODO_NORMAL);
+              }
+            }
+
+        });
       panelBotonesReproduccion.add(btnPrevious);
       btnPrevious.addActionListener(new ActionListener()
               { @Override
                 public void actionPerformed(ActionEvent e)
-                  { if (cancionEnReproduccion.getTiempoReproduccionActual() < Cancion.TIEMPO_MINIMO)
-                    { System.out.println("Deberia pasar a la cancion anterior pero idk how to yet");
+                  { if (JVentana.this.getCancionEnReproduccion().getTiempoReproduccionActual() < Cancion.TIEMPO_MINIMO)
+                    { reproductorMusica.reproducirCancionAnterior();
+                      JVentana.this.actualizarEtiquetas();
+
                     }
                     else
                     { try{ cancionEnReproduccion.restart();
@@ -278,8 +314,8 @@ public class JVentana extends JFrame
             { if (btnPlay.getEstado() == MiJButtonDosEstados.ESTADO_1)
               { btnPlay.setIcon(btnPlay.getIcon2Bright());
                 btnPlay.setEstado(MiJButtonDosEstados.ESTADO_2);
-                lblCancion.setText(JVentana.this.getCancionEnReproduccion().getNombre());
-                reproductorMusica.playAlbum();
+                lblCancion.setHorizontalAlignment(SwingConstants.CENTER);
+                JVentana.this.getCancionEnReproduccion().play();
               }
               else
               { btnPlay.setIcon(btnPlay.getIcon1Bright());
@@ -290,15 +326,53 @@ public class JVentana extends JFrame
 
         });
       panelBotonesReproduccion.add(btnNext);
-      // btnNext.addActionListener(new ActionListener()
-      //   { @Override
-      //     public void actionPerformed()
-      //       {
-      //
-      //       }
-      //
-      //   });
-      panelBotonesReproduccion.add(btnRepeat);
+      btnNext.addActionListener(new ActionListener()
+        { @Override
+          public void actionPerformed(ActionEvent e)
+            { reproductorMusica.reproducirSiguienteCancion();
+              if (JVentana.this.getCancionEnReproduccion().getEstado()=="pause")
+                  JVentana.this.getCancionEnReproduccion().pause();
+              JVentana.this.actualizarEtiquetas();
+
+
+            }
+
+        });
+        panelBotonesReproduccion.add(btnRepeat);
+        btnRepeat.addMouseListener(new MouseAdapter()
+          { @Override
+            public void mouseEntered(MouseEvent me)
+              { if (btnRepeat.getEstado() == MiJButtonDosEstados.ESTADO_1)
+                btnRepeat.setIcon(btnRepeat.getIcon1Bright());
+                else
+                btnRepeat.setIcon(btnRepeat.getIcon2Bright());
+              }
+            @Override
+            public void mouseExited(MouseEvent me)
+              { if (btnRepeat.getEstado() == MiJButtonDosEstados.ESTADO_1)
+                btnRepeat.setIcon(btnRepeat.getIcon1Default());
+                else
+                btnRepeat.setIcon(btnRepeat.getIcon2Default());
+              }
+          });
+        btnRepeat.addActionListener(new ActionListener()
+          { @Override
+            public void actionPerformed(ActionEvent e)
+              { if (btnRepeat.getEstado() == MiJButtonDosEstados.ESTADO_1)
+                { btnRepeat.setIcon(btnRepeat.getIcon2Bright());
+                  btnRepeat.setEstado(MiJButtonDosEstados.ESTADO_2);
+                  btnShuffle.setIcon(btnShuffle.getIcon1Default());
+                  btnShuffle.setEstado(MiJButtonDosEstados.ESTADO_1);
+                  reproductorMusica.setModo(GestorReproductorMusica.MODO_BUCLE);
+                }
+                else
+                { btnRepeat.setIcon(btnRepeat.getIcon1Bright());
+                  btnRepeat.setEstado(MiJButtonDosEstados.ESTADO_1);
+                  reproductorMusica.setModo(GestorReproductorMusica.MODO_NORMAL);
+                }
+              }
+
+          });
 
       MiJPanel panelSliderReproduccion = new MiJPanel(this.COLOR_SECUNDARIO);
       panelInferiorCentral.add(panelSliderReproduccion, BorderLayout.SOUTH);
@@ -312,7 +386,7 @@ public class JVentana extends JFrame
     }
 
   private void iniciarJFrame()
-    {   this.setTitle("Spotify");
+    {   this.setTitle("REPlay");
         this.getContentPane().setBackground(Color.BLACK);
         //Aï¿½ade el logo de Spotify
         this.setIconImage(iconImage.getImage());
@@ -326,17 +400,40 @@ public class JVentana extends JFrame
       this.cancionEnReproduccion.getClip().addLineListener(new LineListener()
         { @Override
           public void update(LineEvent evt)
-          {if (evt.getType() == LineEvent.Type.STOP)
-              if (cancionEnReproduccion.getClip().getMicrosecondPosition() == cancionEnReproduccion.getClip().getMicrosecondLength())
-              System.out.println("Ha acabado la cancion");
-              else
-                {System.out.println("Se ha pulsado pause");
-                 reproductorMusica.pasarDeCancion();
-                }
+          { if (evt.getType() == LineEvent.Type.STOP)
+              {
+                if (cancionEnReproduccion.getClip().getMicrosecondPosition() == cancionEnReproduccion.getClip().getMicrosecondLength())
+                  if(reproductorMusica.getModo() == reproductorMusica.MODO_NORMAL)
+                    reproductorMusica.reproducirSiguienteCancion();
+                  else if (reproductorMusica.getModo() == reproductorMusica.MODO_BUCLE)
+                    {try
+                      {cancionEnReproduccion.restart();
+
+                      }
+                     catch (Exception e)
+                      { e.printStackTrace();
+
+                      }
+                    }
+                  else if (reproductorMusica.getModo() == reproductorMusica.MODO_ALEATORIO)
+                    reproductorMusica.reproducirCancionAleatoria();
+
+
+                  JVentana.this.actualizarEtiquetas();
+               }
 
           }
         });
       }
+
+  public void actualizarEtiquetas()
+    { lblCancion.setText(JVentana.this.getCancionEnReproduccion().getNombre());
+      long minutos = JVentana.this.getCancionEnReproduccion().getClip().getMicrosecondLength()/60000000;
+      long segundos = JVentana.this.getCancionEnReproduccion().getClip().getMicrosecondLength()/1000000 - 60*minutos;
+      lblDuracion.setText(String.valueOf(String.format("%02d", minutos) + " : " + String.format("%02d", segundos)));
+      this.repaint();
+
+    }
   public Cancion getCancionEnReproduccion()
     { return cancionEnReproduccion;
 

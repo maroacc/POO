@@ -22,6 +22,9 @@ import java.awt.event.MouseAdapter;
 
 public class MiJButton extends JButton
   { public static final Color COLOR_DEFECTO = new Color(200, 200, 200);
+    private Icon iconDefault;
+    private Icon iconBright;
+
     public MiJButton()
       { super();
         this.customButtom();
@@ -66,19 +69,40 @@ public class MiJButton extends JButton
 
     public MiJButton(Icon iconDefault, Icon iconBright)
       { super(iconDefault);
+        this.setIconDefault(iconDefault);
+        this.setIconBright(iconBright);
         this.customButtom();
         this.addMouseListener(new MouseAdapter()
           { @Override
             public void mouseEntered(MouseEvent me)
-              { MiJButton.this.setIcon(iconBright);
+              { MiJButton.this.setIcon(MiJButton.this.getIconBright());
 
 
               }
             @Override
             public void mouseExited(MouseEvent me)
-              { MiJButton.this.setIcon(iconDefault);
+              { MiJButton.this.setIcon(MiJButton.this.getIconDefault());
               }
           });
+      }
+
+    public void setIconDefault(Icon iconDefault)
+      { this.iconDefault = iconDefault;
+
+      }
+
+    public Icon getIconDefault()
+      { return iconDefault;
+
+      }
+    public void setIconBright(Icon iconBright)
+      { this.iconBright = iconBright;
+
+      }
+
+    public Icon getIconBright()
+      { return iconBright;
+
       }
 
 
