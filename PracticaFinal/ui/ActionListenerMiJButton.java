@@ -35,7 +35,7 @@ import java.awt.Image;
 import java.awt.Dimension;
 
 public class ActionListenerMiJButton implements ActionListener
-{ public static final float FONT_SIZE = 23;
+{
   private MiJButton btnSeleccionado;
   private MiJButton btn1;
   private MiJButton btn2;
@@ -63,7 +63,7 @@ public class ActionListenerMiJButton implements ActionListener
       btn4.setForeground(MiJButton.COLOR_DEFECTO);
       btn4.setFont(JVentana.FONT_TITLE);
       btnSeleccionado.setForeground(btnSeleccionado.getForeground().brighter());
-      btnSeleccionado.setFont(btnSeleccionado.getFont().deriveFont(FONT_SIZE));
+      btnSeleccionado.setFont(btnSeleccionado.getFont().deriveFont(JVentana.FONT_SIZE_SELECTED_BTN));
 
     }
 

@@ -107,7 +107,7 @@ public class MiJButton extends JButton
 
 
     private void customButtom()
-      { UIManager.put("Button.select", Color.RED);
+      { this.setFocusPainted(false);
         this.setHorizontalAlignment(SwingConstants.LEFT);
         this.setFont(JVentana.FONT_TITLE);
         this.setContentAreaFilled(false);

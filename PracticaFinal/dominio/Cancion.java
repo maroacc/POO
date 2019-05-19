@@ -1,6 +1,8 @@
 package PracticaFinal.dominio;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+
 import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
@@ -14,7 +16,7 @@ import javax.sound.sampled.LineEvent;
 
 
 
-public class Cancion
+public class Cancion implements Serializable
 { public static final long TIEMPO_MINIMO = (long) 1000000;
   private String nombre;
   private String filePath;
@@ -29,7 +31,7 @@ public class Cancion
       this.setFilePath(null);
     }
 
-  public Cancion(String nombre, String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+  public Cancion(String nombre, String filePath)
     { try
       { this.setNombre(nombre);
         this.setFilePath(filePath);
@@ -87,7 +89,7 @@ public class Cancion
   {
       // if (estado.equals("paused"))
       //   {
-      //       System.out.println("audio is already paused");
+      //       //System.out.println("audio is already paused");
       //       return;
       //   }
         this.tiempoReproduccionActual = this.getClip().getMicrosecondPosition();
@@ -95,30 +97,29 @@ public class Cancion
         estado = "pause";
     }
 
-  public void resume() //throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    { try
-        {if (estado.equals("play")==false)
-            { this.getClip().close();
-              resetAudioStream();
-              this.getClip().setMicrosecondPosition(tiempoReproduccionActual);
-              this.play();
-            }
-         }
-      catch (Exception e)
-        { e.printStackTrace();
-
-        }
-
-    }
-  public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException
+  // public void resume() //throws UnsupportedAudioFileException, IOException, LineUnavailableException
+  //   { try
+  //       {if (estado.equals("play")==false)
+  //           { this.getClip().close();
+  //             resetAudioStream();
+  //             this.getClip().setMicrosecondPosition(tiempoReproduccionActual);
+  //             this.play();
+  //           }
+  //        }
+  //     catch (Exception e)
+  //       { e.printStackTrace();
+  //
+  //       }
+  //
+  //   }
+  public void restart()
     {   try { this.getClip().stop();
               this.getClip().close();
               resetAudioStream();
               tiempoReproduccionActual = 0L;
               this.getClip().setMicrosecondPosition(0);
-              this.play();
-              if (this.getEstado() == "pause")
-                this.pause();
+              if (this.getEstado() == "play")
+                this.play();
             }
         catch (Exception e)
           { e.printStackTrace();
@@ -126,7 +127,7 @@ public class Cancion
           }
     }
 
-  public void stop() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+  public void stop()
     { try { tiempoReproduccionActual = 0L;
             this.getClip().stop();
             this.getClip().close();
@@ -146,7 +147,6 @@ public class Cancion
                       resetAudioStream();
                       tiempoReproduccionActual = tiempoSalto;
                       this.getClip().setMicrosecondPosition(tiempoSalto);
-                      this.play();
                   }
 
              }

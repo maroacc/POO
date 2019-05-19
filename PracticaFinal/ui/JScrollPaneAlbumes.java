@@ -1,0 +1,56 @@
+
+package PracticaFinal.ui;
+import PracticaFinal.dominio.Album;
+import PracticaFinal.dominio.Artista;
+import PracticaFinal.dominio.Cancion;
+
+import PracticaFinal.dominio.Representable;
+import PracticaFinal.logica.GestorReproductorMusica;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.Icon;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.JSlider;
+import javax.swing.JComponent;
+import javax.swing.BorderFactory;
+import javax.swing.border.LineBorder;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineEvent;
+
+
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.*;
+import java.awt.Image;
+import java.awt.Dimension;
+
+public class JScrollPaneAlbumes extends JScrollPane
+
+  { public JScrollPaneAlbumes(JVentana jventana, String titulo, Collection collection, Color color)
+      { super(new JPanelAlbumes(jventana, titulo, collection, color));
+        this.setBorder(BorderFactory.createEmptyBorder());
+
+      }
+
+  }

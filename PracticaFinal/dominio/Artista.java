@@ -1,13 +1,16 @@
 package PracticaFinal.dominio;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 
-public class Artista implements Representable
+public class Artista implements Representable, Serializable
+
 { private String nombre;
   private ImageIcon foto;
-  private ArrayList albumes;
+  private ArrayList albumes = new ArrayList();
 
   public Artista()
     { this.setNombre(null);
@@ -53,6 +56,12 @@ public class Artista implements Representable
     { return foto;
 
     }
+
+  public void addAlbum(Album album)
+    { albumes.add(album);
+
+    }
+
   public ArrayList getAlbumes()
     { return albumes;
 

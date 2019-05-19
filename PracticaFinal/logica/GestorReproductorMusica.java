@@ -103,9 +103,12 @@ public class GestorReproductorMusica
         jventana.getCancionEnReproduccion().restart();
         jventana.getCancionEnReproduccion().pause();
         int numeroCancion = jventana.getAlbumEnReproduccion().getCanciones().indexOf(jventana.getCancionEnReproduccion());
-        jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(numeroCancion - 1));
-        jventana.getCancionEnReproduccion().play();
-        jventana.getCancionEnReproduccion().setEstado(estadoSiguienteCancion);
+        if(numeroCancion == 0)
+              jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(jventana.getAlbumEnReproduccion().getCanciones().size()-1));
+        else
+              jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(numeroCancion - 1));
+          jventana.getCancionEnReproduccion().play();
+          jventana.getCancionEnReproduccion().setEstado(estadoSiguienteCancion);
       }
       catch (Exception e)
         { e.printStackTrace();
@@ -122,7 +125,10 @@ public class GestorReproductorMusica
         jventana.getCancionEnReproduccion().restart();
         jventana.getCancionEnReproduccion().pause();
         int numeroCancion = jventana.getAlbumEnReproduccion().getCanciones().indexOf(jventana.getCancionEnReproduccion());
-        jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(numeroCancion + 1));
+        if(numeroCancion == jventana.getAlbumEnReproduccion().getCanciones().size()-1)
+          jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(0));
+        else
+          jventana.setCancionEnReproduccion((Cancion) jventana.getAlbumEnReproduccion().getCanciones().get(numeroCancion + 1));
         jventana.getCancionEnReproduccion().play();
         jventana.getCancionEnReproduccion().setEstado(estadoSiguienteCancion);
       }

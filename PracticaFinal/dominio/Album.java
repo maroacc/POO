@@ -1,12 +1,16 @@
 package PracticaFinal.dominio;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 
-public class Album implements Representable
+public class Album implements Representable, Serializable
 { private String nombre;
   private ImageIcon caratula;
+  private int releaseDate;
+  private ArrayList pathCanciones = new ArrayList();
   private ArrayList canciones = new ArrayList();
 
   public Album()
@@ -18,13 +22,15 @@ public class Album implements Representable
 
     }
 
-  public Album(String nombre, ImageIcon caratula)
+  public Album(String nombre,  int releaseDate,  ImageIcon caratula)
     { this.setNombre(nombre);
+      this.setReleaseDate(releaseDate);
       this.setImageIcon(caratula);
     }
 
-  public Album(String nombre, ImageIcon caratula, ArrayList canciones)
+  public Album(String nombre, int releaseDate, ImageIcon caratula, ArrayList canciones)
     { this.setNombre(nombre);
+      this.setReleaseDate(releaseDate);
       this.setImageIcon(caratula);
       this.setCanciones(canciones);
     }
@@ -33,6 +39,11 @@ public class Album implements Representable
     { this.nombre = nombre;
 
     }
+  public void setReleaseDate(int releaseDate)
+    { this.releaseDate = releaseDate;
+
+    }
+
   @Override
   public void setImageIcon(ImageIcon caratula)
     { this.caratula = caratula;
@@ -42,9 +53,16 @@ public class Album implements Representable
     { this.canciones = canciones;
 
     }
+
+
   @Override
   public String getNombre()
     { return nombre;
+
+    }
+
+  public int getReleaseDate()
+    { return releaseDate;
 
     }
 
